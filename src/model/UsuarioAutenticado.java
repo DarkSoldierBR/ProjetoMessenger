@@ -10,9 +10,9 @@ package model;
  * @author mateus
  */
 public class UsuarioAutenticado {
-    private int id;
-    private String apelido;
-    private boolean autenticado;
+    private static int id;
+    private static String apelido;
+    private static boolean autenticado;
 
     public int getId() {
         return id;

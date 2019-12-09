@@ -167,8 +167,10 @@ public class Login extends javax.swing.JFrame {
         conexao.conectar(); //abre uma conexao com o banco
         
         conexao.logar(apelido, senha); //loga utilizando apelido e senha
-        System.out.println("[Login]O id do login é: "+usuarioautenticado.getId());
-        System.out.println("[Login]Esta autenticado? "+usuarioautenticado.isAutenticado());
+        
+        System.out.println("[Login]O id do usuario é: " + usuarioautenticado.getId());
+        System.out.println("[Login]O apelido do usuario é: " + usuarioautenticado.getApelido());
+        System.out.println("[Login]Esta autenticado? " + usuarioautenticado.isAutenticado());
         
         /*if(usuarioautenticado.isAutenticado()){
         System.out.println("[Login]usuario autenticado");
