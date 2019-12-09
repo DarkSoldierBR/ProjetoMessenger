@@ -79,8 +79,12 @@ public class Conexao {
                     System.out.println("[Conexao]O id do usuario é: " + usuarioautenticado.getId());
                     System.out.println("[Conexao]O apelido do usuario é: " + usuarioautenticado.getApelido());
                     System.out.println("[Conexao]Esta autenticado? " + usuarioautenticado.isAutenticado());
+                } else {
+                    System.out.println("[Conexao]Senha não confere");
                 }
 
+            } else {
+                System.out.println("[Conexao]Usuario não encontrado");
             }
         } catch (SQLException ex) {
             System.out.println("Ocorreu um erro ao conectar!\n" + ex);
