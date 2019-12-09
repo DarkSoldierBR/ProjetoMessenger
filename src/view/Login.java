@@ -172,12 +172,12 @@ public class Login extends javax.swing.JFrame {
         System.out.println("[Login]O apelido do usuario é: " + usuarioautenticado.getApelido());
         System.out.println("[Login]Esta autenticado? " + usuarioautenticado.isAutenticado());
         
-        /*if(usuarioautenticado.isAutenticado()){
-        System.out.println("[Login]usuario autenticado");
+        if(usuarioautenticado.isAutenticado()){
+        System.out.println("[Login]Usuario autenticado");
         
         dispose();
         mensagem.setVisible(true);
-        }*/
+        }
     }//GEN-LAST:event_jBlogarActionPerformed
 
     /**
