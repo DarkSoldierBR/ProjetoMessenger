@@ -37,6 +37,8 @@ public class Cadastrar extends javax.swing.JFrame {
         jPcadastrar_senha = new javax.swing.JPasswordField();
         jTcadastrar_apelido = new javax.swing.JTextField();
         jBcadastrar = new javax.swing.JButton();
+        jBcadastrar1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,6 +72,10 @@ public class Cadastrar extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Comfortaa", 0, 18)); // NOI18N
         jLabel3.setText("Senha");
 
+        jPcadastrar_senha.setFont(new java.awt.Font("Comfortaa", 0, 13)); // NOI18N
+
+        jTcadastrar_apelido.setFont(new java.awt.Font("Comfortaa", 0, 13)); // NOI18N
+
         jBcadastrar.setFont(new java.awt.Font("Comfortaa", 0, 18)); // NOI18N
         jBcadastrar.setText("Cadastrar");
         jBcadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -77,6 +83,17 @@ public class Cadastrar extends javax.swing.JFrame {
                 jBcadastrarActionPerformed(evt);
             }
         });
+
+        jBcadastrar1.setFont(new java.awt.Font("Comfortaa", 0, 18)); // NOI18N
+        jBcadastrar1.setText("Logar");
+        jBcadastrar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBcadastrar1ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Comfortaa", 0, 14)); // NOI18N
+        jLabel4.setText("Já tem uma conta? ");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -90,13 +107,17 @@ public class Cadastrar extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTcadastrar_apelido))
+                                .addComponent(jTcadastrar_apelido, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPcadastrar_senha))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBcadastrar1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBcadastrar)))
                 .addContainerGap())
         );
@@ -112,8 +133,11 @@ public class Cadastrar extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jPcadastrar_senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jBcadastrar)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBcadastrar)
+                    .addComponent(jBcadastrar1)
+                    .addComponent(jLabel4))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -158,6 +182,12 @@ public class Cadastrar extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jBcadastrarActionPerformed
 
+    private void jBcadastrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcadastrar1ActionPerformed
+        dispose(); //fecha janela
+        view.Login login = new view.Login();
+        login.setVisible(true);  //exibe janela cadastro
+    }//GEN-LAST:event_jBcadastrar1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -195,9 +225,11 @@ public class Cadastrar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBcadastrar;
+    private javax.swing.JButton jBcadastrar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField jPcadastrar_senha;

@@ -70,6 +70,10 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Comfortaa", 0, 18)); // NOI18N
         jLabel3.setText("Senha");
 
+        jPlogar_senha.setFont(new java.awt.Font("Comfortaa", 0, 13)); // NOI18N
+
+        jTlogar_apelido.setFont(new java.awt.Font("Comfortaa", 0, 13)); // NOI18N
+
         jBlogar.setFont(new java.awt.Font("Comfortaa", 0, 18)); // NOI18N
         jBlogar.setText("Entrar");
         jBlogar.addActionListener(new java.awt.event.ActionListener() {
@@ -128,7 +132,7 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jBlogar)
                     .addComponent(jLabel4)
                     .addComponent(jBcadastrar))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

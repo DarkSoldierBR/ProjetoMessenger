@@ -36,13 +36,19 @@ public class Mensagem extends javax.swing.JFrame {
         jBatualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(95, 114, 240));
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         jTmostramensagem.setEditable(false);
         jTmostramensagem.setBackground(new java.awt.Color(177, 171, 248));
         jTmostramensagem.setColumns(20);
+        jTmostramensagem.setFont(new java.awt.Font("Comfortaa", 0, 13)); // NOI18N
+        jTmostramensagem.setLineWrap(true);
         jTmostramensagem.setRows(5);
+        jTmostramensagem.setText("\n");
         jScrollPane1.setViewportView(jTmostramensagem);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -63,6 +69,13 @@ public class Mensagem extends javax.swing.JFrame {
         );
 
         jPanel2.setBackground(new java.awt.Color(98, 118, 170));
+        jPanel2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPanel2FocusGained(evt);
+            }
+        });
+
+        jTdigitamensagem.setFont(new java.awt.Font("Comfortaa", 0, 13)); // NOI18N
 
         jBenviar.setText("Send");
         jBenviar.addActionListener(new java.awt.event.ActionListener() {
@@ -125,12 +138,19 @@ public class Mensagem extends javax.swing.JFrame {
     controller.Conexao conexao = new controller.Conexao();
     String mensagem = jTdigitamensagem.getText();
     conexao.enviaMensagem(mensagem);
+    jTdigitamensagem.setText("");
     }//GEN-LAST:event_jBenviarActionPerformed
 
     private void jBatualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBatualizarActionPerformed
      controller.Conexao conexao = new controller.Conexao();
-     conexao.atualizar();
+     conexao.atualizar(this);
+     
+     
     }//GEN-LAST:event_jBatualizarActionPerformed
+
+    private void jPanel2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel2FocusGained
+      //jTdigitamensagem.setText(""); 
+    }//GEN-LAST:event_jPanel2FocusGained
 
     /**
      * @param args the command line arguments
@@ -174,6 +194,6 @@ public class Mensagem extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTdigitamensagem;
-    private javax.swing.JTextArea jTmostramensagem;
+    public javax.swing.JTextArea jTmostramensagem;
     // End of variables declaration//GEN-END:variables
 }

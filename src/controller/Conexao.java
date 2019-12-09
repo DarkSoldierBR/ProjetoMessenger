@@ -109,10 +109,12 @@ public class Conexao extends view.Mensagem{
         }
     }
 
-    public void atualizar() {
+    public void atualizar(view.Mensagem mensagem) {
         conectar();
-        model.Mensagem mensagem = new model.Mensagem();
+       // model.Mensagem mensagem = new model.Mensagem();
         model.UsuarioAutenticado usuarioautenticado = new model.UsuarioAutenticado();
+        view.Mensagem m = new view.Mensagem();
+        mensagem.jTmostramensagem.setText("");
         
         String sql = "select * from tbl_mensagem";
         String texto = "";
@@ -129,11 +131,13 @@ public class Conexao extends view.Mensagem{
                 System.out.println("[Conexao] Horario: " + horario);
                 System.out.println("[Conexao] Mensagem: " + message);
                 
-                texto = "["+horario+"] "+usuario+": "+message;
+                texto = "["+horario+"] "+usuario+": "+message+"\n";
                 System.out.println("[Conexao] Texto: "+texto);
                 
-                mensagem.setMensagem(message);
-                super.
+                //mensagem.setMensagem(message);
+               // mensagem.jTmostramensagem.setText("");
+                mensagem.jTmostramensagem.append(texto);
+                
             }
         } catch (SQLException ex) {
             System.out.println("Ocorreu um erro ao enviar ao atualizar!\n" + ex);
