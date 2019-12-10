@@ -138,6 +138,7 @@ public class Mensagem extends javax.swing.JFrame {
     controller.Conexao conexao = new controller.Conexao();
     String mensagem = jTdigitamensagem.getText();
     conexao.enviaMensagem(mensagem);
+    conexao.atualizar(this);
     jTdigitamensagem.setText("");
     }//GEN-LAST:event_jBenviarActionPerformed
 

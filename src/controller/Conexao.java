@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -119,28 +121,32 @@ public class Conexao extends view.Mensagem{
         String sql = "select * from tbl_mensagem";
         String texto = "";
         String usuario,horario,message;
-        try {
-            Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery(sql);
-            while(rs.next()){
-                usuario = usuarioautenticado.getApelido();
-                horario = rs.getString(3);
-                message = rs.getString(4);
+        
+        
+            try {
+                Statement stm = conn.createStatement();
+                ResultSet rs = stm.executeQuery(sql);
+                while(rs.next()){
+                    usuario = usuarioautenticado.getApelido();
+                    horario = rs.getString(3);
+                    message = rs.getString(4);
+                    
+                    System.out.println("[Conexao] Usuario: " + usuario);
+                    System.out.println("[Conexao] Horario: " + horario);
+                    System.out.println("[Conexao] Mensagem: " + message);
+                    
+                    texto = "["+horario+"] "+usuario+": "+message+"\n";
+                    System.out.println("[Conexao] Texto: "+texto);
+                    
+                    //mensagem.setMensagem(message);
+                    // mensagem.jTmostramensagem.setText("");
+                    mensagem.jTmostramensagem.append(texto);
+                }
                 
-                System.out.println("[Conexao] Usuario: " + usuario);
-                System.out.println("[Conexao] Horario: " + horario);
-                System.out.println("[Conexao] Mensagem: " + message);
-                
-                texto = "["+horario+"] "+usuario+": "+message+"\n";
-                System.out.println("[Conexao] Texto: "+texto);
-                
-                //mensagem.setMensagem(message);
-               // mensagem.jTmostramensagem.setText("");
-                mensagem.jTmostramensagem.append(texto);
-                
+            } catch (SQLException ex) {
+                System.out.println("Ocorreu um erro ao enviar ao atualizar!\n" + ex);
             }
-        } catch (SQLException ex) {
-            System.out.println("Ocorreu um erro ao enviar ao atualizar!\n" + ex);
-        }
+        
     }
+
 }
