@@ -42,7 +42,7 @@ public class Conexao extends view.Mensagem{
 
     public void cadastrar(String apelido, char[] senha) {
 
-        String sql = "INSERT INTO tbl_usuario (apelido,senha) VALUES('" + apelido + "','" + String.valueOf(senha) + "');";
+        String sql = "INSERT INTO tbl_usuario (apelido,senha) VALUES('?,?');";
 
         try {
             PreparedStatement pst;
