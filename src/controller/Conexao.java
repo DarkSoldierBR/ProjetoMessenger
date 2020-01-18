@@ -23,7 +23,7 @@ public class Conexao extends view.Mensagem{
     String host = "localhost";    //caminho do servidor do BD
     String database = "db_messenger";        //nome do seu banco de dados
     String url = "jdbc:mysql://" + host + "/" + database;
-    String usuario = "root";        //nome de um usuário de seu BD      
+    String usuario = "messenger";        //nome de um usuário de seu BD      
     String senha = "1234";      //sua senha de acesso
     Connection conn;
 
@@ -96,12 +96,17 @@ public class Conexao extends view.Mensagem{
     }
 
     public void enviaMensagem(String mensagem) {
+      //      view.Mensagem Mensagem = new view.Mensagem();
+      //      view.Cadastrar Cadastrar = new view.Cadastrar();
+            
         conectar();
         model.UsuarioAutenticado usuarioautenticado = new model.UsuarioAutenticado();
 
         String sql = "insert into tbl_mensagem (id_user,mensagem) values (?,?)";
+        
+       // if(usuarioautenticado.isAutenticado()){
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
+        PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, usuarioautenticado.getId());
             ps.setString(2, mensagem);
             ps.execute();
@@ -109,6 +114,7 @@ public class Conexao extends view.Mensagem{
         } catch (SQLException ex) {
             System.out.println("Ocorreu um erro ao enviar a mensagem!\n" + ex);
         }
+       
     }
 
     public void atualizar(view.Mensagem mensagem) {

@@ -5,6 +5,8 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author mateus
@@ -136,10 +138,24 @@ public class Mensagem extends javax.swing.JFrame {
 
     private void jBenviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBenviarActionPerformed
     controller.Conexao conexao = new controller.Conexao();
+      view.Mensagem Mensagem = new view.Mensagem();
+            view.Cadastrar Cadastrar = new view.Cadastrar();
+    
     String mensagem = jTdigitamensagem.getText();
+    
+            model.UsuarioAutenticado usuarioautenticado = new model.UsuarioAutenticado();
+
+    
+        if(usuarioautenticado.isAutenticado()){
     conexao.enviaMensagem(mensagem);
     conexao.atualizar(this);
     jTdigitamensagem.setText("");
+     }else{
+        JOptionPane.showMessageDialog(rootPane, "Você não esta logado!");
+          dispose();
+          Cadastrar.setVisible(true);
+        }
+    
     }//GEN-LAST:event_jBenviarActionPerformed
 
     private void jBatualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBatualizarActionPerformed
