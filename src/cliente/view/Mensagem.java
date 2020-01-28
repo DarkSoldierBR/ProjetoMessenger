@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package cliente.view;
 
 import javax.swing.JOptionPane;
 
@@ -129,7 +129,7 @@ public class Mensagem extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -137,13 +137,13 @@ public class Mensagem extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBenviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBenviarActionPerformed
-    controller.Conexao conexao = new controller.Conexao();
-      view.Mensagem Mensagem = new view.Mensagem();
-            view.Cadastrar Cadastrar = new view.Cadastrar();
+    cliente.controller.Conexao conexao = new cliente.controller.Conexao();
+     cliente.view.Mensagem Mensagem = new cliente.view.Mensagem();
+            cliente.view.Cadastrar Cadastrar = new cliente.view.Cadastrar();
     
     String mensagem = jTdigitamensagem.getText();
     
-            model.UsuarioAutenticado usuarioautenticado = new model.UsuarioAutenticado();
+            cliente.model.UsuarioAutenticado usuarioautenticado = new cliente.model.UsuarioAutenticado();
 
     
         if(usuarioautenticado.isAutenticado()){
@@ -159,7 +159,7 @@ public class Mensagem extends javax.swing.JFrame {
     }//GEN-LAST:event_jBenviarActionPerformed
 
     private void jBatualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBatualizarActionPerformed
-     controller.Conexao conexao = new controller.Conexao();
+     cliente.controller.Conexao conexao = new cliente.controller.Conexao();
      conexao.atualizar(this);
      
      

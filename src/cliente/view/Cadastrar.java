@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package cliente.view;
 
 import javax.swing.JOptionPane;
 
@@ -160,7 +160,7 @@ public class Cadastrar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBcadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcadastrarActionPerformed
-        controller.Conexao conexao = new controller.Conexao();
+        cliente.controller.Conexao conexao = new cliente.controller.Conexao();
         
         
         String apelido = jTcadastrar_apelido.getText();
@@ -175,7 +175,7 @@ public class Cadastrar extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, "Usuario Cadastrado com sucesso"); //exibe alerta cadastrado com sucesso
         
         
-        view.Login login = new view.Login();
+        cliente.view.Login login = new cliente.view.Login();
         
         dispose(); //fecha janela
         login.setVisible(true); //abre janela login
@@ -184,7 +184,7 @@ public class Cadastrar extends javax.swing.JFrame {
 
     private void jBcadastrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcadastrar1ActionPerformed
         dispose(); //fecha janela
-        view.Login login = new view.Login();
+        cliente.view.Login login = new cliente.view.Login();
         login.setVisible(true);  //exibe janela cadastro
     }//GEN-LAST:event_jBcadastrar1ActionPerformed
 

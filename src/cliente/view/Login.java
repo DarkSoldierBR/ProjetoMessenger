@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package cliente.view;
 
 /**
  *
@@ -156,18 +156,18 @@ public class Login extends javax.swing.JFrame {
 
     private void jBcadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcadastrarActionPerformed
         dispose(); //fecha janela
-        view.Cadastrar cadastrar = new view.Cadastrar();
+        cliente.view.Cadastrar cadastrar = new cliente.view.Cadastrar();
         cadastrar.setVisible(true);  //exibe janela cadastro
     }//GEN-LAST:event_jBcadastrarActionPerformed
 
     private void jBlogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBlogarActionPerformed
-        model.UsuarioAutenticado usuarioautenticado = new model.UsuarioAutenticado();
-        view.Mensagem mensagem = new view.Mensagem();
+        cliente.model.UsuarioAutenticado usuarioautenticado = new cliente.model.UsuarioAutenticado();
+        cliente.view.Mensagem mensagem = new cliente.view.Mensagem();
         
         String apelido = jTlogar_apelido.getText(); //cria a variavel apelido com o valor de jTlogar_apelido
         char[] senha = jPlogar_senha.getPassword(); //cria a variavel senha com o valor de jPlogar_senha
         
-        controller.Conexao conexao = new controller.Conexao();
+        cliente.controller.Conexao conexao = new cliente.controller.Conexao();
         conexao.conectar(); //abre uma conexao com o banco
         
         conexao.logar(apelido, senha); //loga utilizando apelido e senha

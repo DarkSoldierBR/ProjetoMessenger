@@ -1,4 +1,4 @@
-package controller;
+package cliente.controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,8 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -18,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author mateus
  */
-public class Conexao extends view.Mensagem{
+public class Conexao extends cliente.view.Mensagem{
 
     String host = "localhost";    //caminho do servidor do BD
     String database = "db_messenger";        //nome do seu banco de dados
@@ -61,7 +60,7 @@ public class Conexao extends view.Mensagem{
 
     public void logar(String apelido, char[] senha) {
         Statement stm;
-        model.UsuarioAutenticado usuarioautenticado = new model.UsuarioAutenticado();
+        cliente.model.UsuarioAutenticado usuarioautenticado = new cliente.model.UsuarioAutenticado();
         String sql = "select * from tbl_usuario where apelido like '" + apelido + "'";
 
         try {
@@ -100,7 +99,7 @@ public class Conexao extends view.Mensagem{
       //      view.Cadastrar Cadastrar = new view.Cadastrar();
             
         conectar();
-        model.UsuarioAutenticado usuarioautenticado = new model.UsuarioAutenticado();
+        cliente.model.UsuarioAutenticado usuarioautenticado = new cliente.model.UsuarioAutenticado();
 
         String sql = "insert into tbl_mensagem (id_user,mensagem) values (?,?)";
         
@@ -117,11 +116,11 @@ public class Conexao extends view.Mensagem{
        
     }
 
-    public void atualizar(view.Mensagem mensagem) {
+    public void atualizar(cliente.view.Mensagem mensagem) {
         conectar();
        // model.Mensagem mensagem = new model.Mensagem();
-        model.UsuarioAutenticado usuarioautenticado = new model.UsuarioAutenticado();
-        view.Mensagem m = new view.Mensagem();
+        cliente.model.UsuarioAutenticado usuarioautenticado = new cliente.model.UsuarioAutenticado();
+        cliente.view.Mensagem m = new cliente.view.Mensagem();
         mensagem.jTmostramensagem.setText("");
         
         String sql = "select * from tbl_mensagem";
