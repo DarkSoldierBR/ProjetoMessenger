@@ -1,11 +1,17 @@
 package cliente.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 /*
@@ -17,7 +23,7 @@ import java.sql.Statement;
  *
  * @author mateus
  */
-public class Conexao extends cliente.view.Mensagem{
+public class Conexao extends cliente.view.Mensagem {
 
     String host = "localhost";    //caminho do servidor do BD
     String database = "db_messenger";        //nome do seu banco de dados
@@ -40,20 +46,54 @@ public class Conexao extends cliente.view.Mensagem{
     }
 
     public void cadastrar(String apelido, char[] senha) {
+        conectar();
 
-        String sql = "INSERT INTO tbl_usuario (apelido,senha) VALUES('?,?');";
 
+        String sql1 = "select * from tbl_usuario where apelido like '" + apelido + "'";
         try {
-            PreparedStatement pst;
-            pst = conn.prepareCall(sql, 0, 0, 0);
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql1);
 
-            pst.setString(1, apelido);
-            pst.setString(2, String.valueOf(senha));
-            pst.execute();
-            conn.close();
+            if (rs.next()) { //verifica se o apelido ja esta cadastrado
+                System.out.println("[Conexao]Este apelido ja esta sendo usado,tente outro");
+                JOptionPane.showMessageDialog(rootPane, "Este apelido ja esta sendo usado,tente outro"); //exibe alerta cadastrado com sucesso
 
+            } else {
+                
+
+                String Senha = String.valueOf(senha);
+                MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
+                byte messageDigest[] = algorithm.digest(Senha.getBytes("UTF-8"));
+
+                StringBuilder hexString = new StringBuilder();
+                for (byte b : messageDigest) {
+                    hexString.append(String.format("%02X", 0xFF & b));
+                }
+                
+                String senhahex = hexString.toString();
+               
+                String sql = "INSERT INTO tbl_usuario (apelido,senha) VALUES('" + apelido + "','" + senhahex + "');";
+
+
+                st.executeUpdate(sql); //insere os dados no bd
+
+                conn.close(); //fecha a conexao
+                
+                JOptionPane.showMessageDialog(rootPane, "Usuario Cadastrado com sucesso"); //exibe alerta cadastrado com sucesso
+              
+                
+                cliente.view.Login login = new cliente.view.Login();
+                login.setVisible(true); //chama a janela login
+              
+            }
         } catch (SQLException ex) {
             System.out.println("Ocorreu um erro ao cadastrar!\n" + ex);
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro ao cadastrar");
+
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -70,7 +110,19 @@ public class Conexao extends cliente.view.Mensagem{
 
             if (rs.next()) {
                 System.out.println("[Conexao]Usuario encontrado");
-                if (rs.getString("senha").matches(String.valueOf(senha))) {
+                
+                String Senha = String.valueOf(senha);
+                MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
+                byte messageDigest[] = algorithm.digest(Senha.getBytes("UTF-8"));
+
+                StringBuilder hexString = new StringBuilder();
+                for (byte b : messageDigest) {
+                    hexString.append(String.format("%02X", 0xFF & b));
+                }
+                
+                String senhahex = hexString.toString();
+                
+                if (rs.getString("senha").matches(senhahex)) {
                     System.out.println("[Conexao]Senha confere");
 
                     usuarioautenticado.setAutenticado(true);
@@ -82,30 +134,41 @@ public class Conexao extends cliente.view.Mensagem{
                     System.out.println("[Conexao]Esta autenticado? " + usuarioautenticado.isAutenticado());
                 } else {
                     System.out.println("[Conexao]Senha não confere");
+                            JOptionPane.showMessageDialog(rootPane, "Senha não confere");
+
                 }
 
             } else {
                 System.out.println("[Conexao]Usuario não encontrado");
+                        JOptionPane.showMessageDialog(rootPane, "Usuario não encontrado");
+                        cliente.view.Login login = new cliente.view.Login();
+                        login.jTlogar_apelido.setText("");
+                        login.jPlogar_senha.setText("");
+
             }
             conn.close();
             rs.close();
         } catch (SQLException ex) {
             System.out.println("Ocorreu um erro ao logar!\n" + ex);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void enviaMensagem(String mensagem) {
-      //      view.Mensagem Mensagem = new view.Mensagem();
-      //      view.Cadastrar Cadastrar = new view.Cadastrar();
-            
+        //      view.Mensagem Mensagem = new view.Mensagem();
+        //      view.Cadastrar Cadastrar = new view.Cadastrar();
+
         conectar();
         cliente.model.UsuarioAutenticado usuarioautenticado = new cliente.model.UsuarioAutenticado();
 
         String sql = "insert into tbl_mensagem (id_user,mensagem) values (?,?)";
-        
-       // if(usuarioautenticado.isAutenticado()){
+
+        // if(usuarioautenticado.isAutenticado()){
         try {
-        PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, usuarioautenticado.getId());
             ps.setString(2, mensagem);
             ps.execute();
@@ -113,45 +176,44 @@ public class Conexao extends cliente.view.Mensagem{
         } catch (SQLException ex) {
             System.out.println("Ocorreu um erro ao enviar a mensagem!\n" + ex);
         }
-       
+
     }
 
     public void atualizar(cliente.view.Mensagem mensagem) {
         conectar();
-       // model.Mensagem mensagem = new model.Mensagem();
+        // model.Mensagem mensagem = new model.Mensagem();
         cliente.model.UsuarioAutenticado usuarioautenticado = new cliente.model.UsuarioAutenticado();
         cliente.view.Mensagem m = new cliente.view.Mensagem();
         mensagem.jTmostramensagem.setText("");
-        
+
         String sql = "select * from tbl_mensagem";
         String texto = "";
-        String usuario,horario,message;
-        
-        
-            try {
-                Statement stm = conn.createStatement();
-                ResultSet rs = stm.executeQuery(sql);
-                while(rs.next()){
-                    usuario = usuarioautenticado.getApelido();
-                    horario = rs.getString(3);
-                    message = rs.getString(4);
-                    
-                    System.out.println("[Conexao] Usuario: " + usuario);
-                    System.out.println("[Conexao] Horario: " + horario);
-                    System.out.println("[Conexao] Mensagem: " + message);
-                    
-                    texto = "["+horario+"] "+usuario+": "+message+"\n";
-                    System.out.println("[Conexao] Texto: "+texto);
-                    
-                    //mensagem.setMensagem(message);
-                    // mensagem.jTmostramensagem.setText("");
-                    mensagem.jTmostramensagem.append(texto);
-                }
-                
-            } catch (SQLException ex) {
-                System.out.println("Ocorreu um erro ao enviar ao atualizar!\n" + ex);
+        String usuario, horario, message;
+
+        try {
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+            while (rs.next()) {
+                usuario = usuarioautenticado.getApelido();
+                horario = rs.getString(3);
+                message = rs.getString(4);
+
+                System.out.println("[Conexao] Usuario: " + usuario);
+                System.out.println("[Conexao] Horario: " + horario);
+                System.out.println("[Conexao] Mensagem: " + message);
+
+                texto = "[" + horario + "] " + usuario + ": " + message + "\n";
+                System.out.println("[Conexao] Texto: " + texto);
+
+                //mensagem.setMensagem(message);
+                // mensagem.jTmostramensagem.setText("");
+                mensagem.jTmostramensagem.append(texto);
             }
-        
+
+        } catch (SQLException ex) {
+            System.out.println("Ocorreu um erro ao enviar ao atualizar!\n" + ex);
+        }
+
     }
 
 }
