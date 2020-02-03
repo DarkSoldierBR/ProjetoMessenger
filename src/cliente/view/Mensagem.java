@@ -6,7 +6,9 @@
 package cliente.view;
 
 import javax.swing.JOptionPane;
-
+import cliente.controller.Cliente;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author mateus
@@ -147,10 +149,18 @@ public class Mensagem extends javax.swing.JFrame {
 
     
         if(usuarioautenticado.isAutenticado()){
-    conexao.enviaMensagem(mensagem);
-    conexao.atualizar(this);
-    jTdigitamensagem.setText("");
-     }else{
+//    conexao.enviaMensagem(mensagem);
+//    conexao.atualizar(this);
+//    jTdigitamensagem.setText("");
+
+        
+        cliente.controller.Cliente cliente = new cliente.controller.Cliente();
+        try {
+            cliente.conectar();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Mensagem.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }else{
         JOptionPane.showMessageDialog(rootPane, "Você não esta logado!");
           dispose();
           Cadastrar.setVisible(true);
@@ -210,7 +220,7 @@ public class Mensagem extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTdigitamensagem;
+    public static javax.swing.JTextField jTdigitamensagem;
     public javax.swing.JTextArea jTmostramensagem;
     // End of variables declaration//GEN-END:variables
 }

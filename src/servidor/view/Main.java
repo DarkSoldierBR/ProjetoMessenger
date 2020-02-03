@@ -76,6 +76,8 @@ public class Main extends javax.swing.JFrame {
 
         jLabel1.setText("Status");
 
+        jLiconStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/error.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -134,9 +136,10 @@ public class Main extends javax.swing.JFrame {
 
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        servidor.controller.Servidor server = new servidor.controller.Servidor();
-        server.stopThread();
-        jTtexto.setText("");
+//        servidor.controller.Servidor server = new servidor.controller.Servidor();
+//        server.stopThread();
+//        jTtexto.setText("");
+//cliente.view.SplashScreen sc = new cliente.view.SplashScreen();
 
 
     }//GEN-LAST:event_jButton1ActionPerformed

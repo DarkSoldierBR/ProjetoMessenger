@@ -1,5 +1,6 @@
 package cliente.controller;
 
+import cliente.view.Login;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -48,7 +49,6 @@ public class Conexao extends cliente.view.Mensagem {
     public void cadastrar(String apelido, char[] senha) {
         conectar();
 
-
         String sql1 = "select * from tbl_usuario where apelido like '" + apelido + "'";
         try {
             Statement st = conn.createStatement();
@@ -59,7 +59,6 @@ public class Conexao extends cliente.view.Mensagem {
                 JOptionPane.showMessageDialog(rootPane, "Este apelido ja esta sendo usado,tente outro"); //exibe alerta cadastrado com sucesso
 
             } else {
-                
 
                 String Senha = String.valueOf(senha);
                 MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
@@ -69,22 +68,20 @@ public class Conexao extends cliente.view.Mensagem {
                 for (byte b : messageDigest) {
                     hexString.append(String.format("%02X", 0xFF & b));
                 }
-                
-                String senhahex = hexString.toString();
-               
-                String sql = "INSERT INTO tbl_usuario (apelido,senha) VALUES('" + apelido + "','" + senhahex + "');";
 
+                String senhahex = hexString.toString();
+
+                String sql = "INSERT INTO tbl_usuario (apelido,senha) VALUES('" + apelido + "','" + senhahex + "');";
 
                 st.executeUpdate(sql); //insere os dados no bd
 
                 conn.close(); //fecha a conexao
-                
+
                 JOptionPane.showMessageDialog(rootPane, "Usuario Cadastrado com sucesso"); //exibe alerta cadastrado com sucesso
-              
-                
+
                 cliente.view.Login login = new cliente.view.Login();
                 login.setVisible(true); //chama a janela login
-              
+
             }
         } catch (SQLException ex) {
             System.out.println("Ocorreu um erro ao cadastrar!\n" + ex);
@@ -100,6 +97,8 @@ public class Conexao extends cliente.view.Mensagem {
 
     public void logar(String apelido, char[] senha) {
         Statement stm;
+
+      //  cliente.view.Login login = new cliente.view.Login();
         cliente.model.UsuarioAutenticado usuarioautenticado = new cliente.model.UsuarioAutenticado();
         String sql = "select * from tbl_usuario where apelido like '" + apelido + "'";
 
@@ -110,7 +109,7 @@ public class Conexao extends cliente.view.Mensagem {
 
             if (rs.next()) {
                 System.out.println("[Conexao]Usuario encontrado");
-                
+
                 String Senha = String.valueOf(senha);
                 MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
                 byte messageDigest[] = algorithm.digest(Senha.getBytes("UTF-8"));
@@ -119,9 +118,9 @@ public class Conexao extends cliente.view.Mensagem {
                 for (byte b : messageDigest) {
                     hexString.append(String.format("%02X", 0xFF & b));
                 }
-                
+
                 String senhahex = hexString.toString();
-                
+
                 if (rs.getString("senha").matches(senhahex)) {
                     System.out.println("[Conexao]Senha confere");
 
@@ -134,16 +133,15 @@ public class Conexao extends cliente.view.Mensagem {
                     System.out.println("[Conexao]Esta autenticado? " + usuarioautenticado.isAutenticado());
                 } else {
                     System.out.println("[Conexao]Senha não confere");
-                            JOptionPane.showMessageDialog(rootPane, "Senha não confere");
+                    JOptionPane.showMessageDialog(rootPane, "Senha não confere");
+                    
 
                 }
 
             } else {
                 System.out.println("[Conexao]Usuario não encontrado");
-                        JOptionPane.showMessageDialog(rootPane, "Usuario não encontrado");
-                        cliente.view.Login login = new cliente.view.Login();
-                        login.jTlogar_apelido.setText("");
-                        login.jPlogar_senha.setText("");
+                JOptionPane.showMessageDialog(rootPane, "Usuario não encontrado");
+                
 
             }
             conn.close();

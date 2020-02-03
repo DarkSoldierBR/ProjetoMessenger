@@ -5,7 +5,7 @@
  */
 package cliente.view;
 
-import javax.swing.JOptionPane;
+import splash.Splash;
 
 
 /**
@@ -101,12 +101,12 @@ public class Login extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBcadastrar)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,13 +151,14 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jPlogar_senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 7, Short.MAX_VALUE)
-                        .addComponent(jBlogar)))
-                .addContainerGap())
+                        .addGap(12, 12, 12)
+                        .addComponent(jBlogar))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -187,7 +188,7 @@ public class Login extends javax.swing.JFrame {
 
     private void jBlogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBlogarActionPerformed
         cliente.model.UsuarioAutenticado usuarioautenticado = new cliente.model.UsuarioAutenticado();
-        cliente.view.Mensagem mensagem = new cliente.view.Mensagem();
+        //cliente.view.SplashScreen mensagem = new cliente.view.SplashScreen();
         
         String apelido = jTlogar_apelido.getText(); //cria a variavel apelido com o valor de jTlogar_apelido
         char[] senha = jPlogar_senha.getPassword(); //cria a variavel senha com o valor de jPlogar_senha
@@ -197,6 +198,10 @@ public class Login extends javax.swing.JFrame {
         
         conexao.logar(apelido, senha); //loga utilizando apelido e senha
         
+        
+        jTlogar_apelido.setText("");
+        jPlogar_senha.setText("");
+        
         System.out.println("[Login]O id do usuario é: " + usuarioautenticado.getId());
         System.out.println("[Login]O apelido do usuario é: " + usuarioautenticado.getApelido());
         System.out.println("[Login]Esta autenticado? " + usuarioautenticado.isAutenticado());
@@ -205,8 +210,15 @@ public class Login extends javax.swing.JFrame {
         System.out.println("[Login]Usuario autenticado");
         
         dispose();
-        mensagem.setVisible(true);
         
+//        
+        splash.main splash = new splash.main();
+        splash.Splash();
+ //       new Splash();
+
+        // mensagem.setVisible(true);
+       
+
         }
     }//GEN-LAST:event_jBlogarActionPerformed
 
@@ -259,6 +271,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     public static javax.swing.JPasswordField jPlogar_senha;
-    public javax.swing.JTextField jTlogar_apelido;
+    public static javax.swing.JTextField jTlogar_apelido;
     // End of variables declaration//GEN-END:variables
 }
